@@ -7,8 +7,8 @@ namespace zich
     class Matrix
     {
     private:
-        int rows;
-        int columns;
+        size_t rows;
+        size_t columns;
         std::vector<std::vector<double>> Mat;
     public:
         Matrix(std::vector<double> vec, size_t rows, size_t columns);
