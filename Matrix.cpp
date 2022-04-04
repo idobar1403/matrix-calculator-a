@@ -179,7 +179,7 @@ namespace zich
         {
             for (size_t j = 0; j < columns; j++)
             {
-                mat.Mat[i][j]=Mat[i][j]+1;
+                mat.Mat[i][j] = Mat[i][j] + 1;
             }
         }
         return mat;
@@ -191,7 +191,7 @@ namespace zich
         {
             for (size_t j = 0; j < columns; j++)
             {
-                mat.Mat[i][j]=Mat[i][j]-1;
+                mat.Mat[i][j] = Mat[i][j] - 1;
             }
         }
         return mat;
@@ -203,11 +203,13 @@ namespace zich
         {
             for (size_t j = 0; j < columns; j++)
             {
-                if(Mat[i][j]<0){
-                    mat.Mat[i][j]=Mat[i][j]*(-1);
+                if (Mat[i][j] < 0)
+                {
+                    mat.Mat[i][j] = Mat[i][j] * (-1);
                 }
-                else{
-                     mat.Mat[i][j]=Mat[i][j];
+                else
+                {
+                    mat.Mat[i][j] = Mat[i][j];
                 }
             }
         }
@@ -220,11 +222,13 @@ namespace zich
         {
             for (size_t j = 0; j < columns; j++)
             {
-                if(Mat[i][j]>0){
-                    mat.Mat[i][j]=Mat[i][j]*(-1);
+                if (Mat[i][j] > 0)
+                {
+                    mat.Mat[i][j] = Mat[i][j] * (-1);
                 }
-                else{
-                     mat.Mat[i][j]=Mat[i][j];
+                else
+                {
+                    mat.Mat[i][j] = Mat[i][j];
                 }
             }
         }
@@ -287,7 +291,7 @@ namespace zich
         {
             for (size_t j = 0; j < this->columns; j++)
             {
-                Mat[i][j]-=other.Mat[i][j];
+                Mat[i][j] -= other.Mat[i][j];
             }
         }
         return *this;
@@ -299,7 +303,7 @@ namespace zich
         {
             for (size_t j = 0; j < mat.columns; j++)
             {
-                sum_mat.Mat[i][j] = mat.Mat[i][j]*scalar;
+                sum_mat.Mat[i][j] = mat.Mat[i][j] * scalar;
             }
         }
         return sum_mat;
@@ -311,21 +315,24 @@ namespace zich
         {
             for (size_t j = 0; j < this->columns; j++)
             {
-                this->Mat[i][j]*=scalar;
+                this->Mat[i][j] *= scalar;
             }
         }
         return *this;
     }
-    ostream& operator<<(ostream& os , const Matrix &mat){
+    ostream &operator<<(ostream &os, const Matrix &mat)
+    {
         for (size_t i = 0; i < mat.columns; i++)
         {
-            os<<"["<< " ";
+            os << "["
+               << " ";
             for (size_t j = 0; j < mat.rows; j++)
             {
-                os<<mat.Mat[i][j]<<" ";
+                os << mat.Mat[i][j] << " ";
             }
-            os<<"]"<<"\n";            
+            os << "]"
+               << "\n";
         }
-     return os;   
+        return os;
     }
 }
