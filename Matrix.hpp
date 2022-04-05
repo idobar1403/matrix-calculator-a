@@ -12,6 +12,7 @@ namespace zich
         std::vector<std::vector<double>> Mat;
 
     public:
+        Matrix(std::vector<double> vec, int rows, int columns);
         Matrix(std::vector<double> vec, size_t rows, size_t columns);
         Matrix(size_t rows, size_t columns);
         // function for matrix equalization

@@ -10,7 +10,6 @@ TEST_CASE("Constructor check")
     std::vector<double> another_mat = {21, 34, 11, 57, 42, 0, 55, 12, 6, 12, 56, 8, 23, 78, 9, 13, 41, 5};
 
     CHECK_NOTHROW(Matrix(another_mat, 6, 3));
-    CHECK_NOTHROW(Matrix(6, 3));
 }
 TEST_CASE("Matrix multiplication")
 {
@@ -248,4 +247,7 @@ TEST_CASE("invalid sizes")
     CHECK_THROWS(same_row_size * big);       // can't multiply matrix that the left col size is different from the right row size
     CHECK_THROWS(Matrix(another_mat, 5, 5)); // can't create matrix with more cells than the vector size
     CHECK_THROWS(Matrix(big_mat_1, 6, 6));   // can't create matrix with more cells than the vector size
+    CHECK_THROWS(Matrix(big_mat_1, -6, 6));  // can't create matrix with negative values
+    CHECK_THROWS(Matrix(big_mat_1, 6, -6));  // can't create matrix with negative values
+    CHECK_THROWS(Matrix(big_mat_1, -1, -3)); // can't create matrix with negative values
 }

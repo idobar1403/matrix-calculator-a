@@ -36,21 +36,26 @@ size_t matrix_sum(const vector<vector<double>> &mat)
     }
     return sum;
 }
-namespace zich
-{
-    Matrix::Matrix(std::vector<double> vec, size_t rows, size_t columns)
-    {
-        if(rows*columns > vec.size()){
-            throw invalid_argument("not enough size for matrix");
-        }
-        if (rows < 0 || columns < 0)
+int check_positive(int num){
+if (num< 0)
         {
             throw invalid_argument("can't have negative row or col");
         }
+        return num;
+}
+namespace zich
+{
+    Matrix::Matrix(std::vector<double> vec, int rows, int columns):Matrix(vec,static_cast<size_t>(check_positive(rows)),static_cast<size_t>(check_positive(columns))){}
+    Matrix::Matrix(std::vector<double> vec, size_t rows, size_t columns)
+    {
         if (rows % 1 != 0 || columns % 1 != 0)
         {
             throw invalid_argument("rows and columns must be int number");
         }
+        if(rows*columns > vec.size()){
+            throw invalid_argument("not enough size for matrix");
+        }
+        
         this->rows = rows;
         this->columns = columns;
         this->Mat = insert_val(vec, rows, columns);
