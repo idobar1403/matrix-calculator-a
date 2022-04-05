@@ -3,6 +3,14 @@
 using namespace std;
 vector<vector<double>> insert_val(std::vector<double> vec, size_t rows, size_t columns)
 {
+    if (rows < 0 || columns < 0)
+    {
+        throw invalid_argument("can't have negative row or col");
+    }
+    if (rows % 1 != 0 || columns % 1 != 0)
+    {
+        throw invalid_argument("rows and columns must be int number");
+    }
     vector<vector<double>> mat(rows, vector<double>(columns));
     for (size_t i = 0; i < rows; i++)
     {
@@ -17,6 +25,7 @@ vector<vector<double>> insert_val(std::vector<double> vec, size_t rows, size_t c
 }
 size_t matrix_sum(const vector<vector<double>> &mat)
 {
+
     size_t sum = 0;
     for (size_t i = 0; i < mat.size(); i++)
     {
@@ -31,17 +40,36 @@ namespace zich
 {
     Matrix::Matrix(std::vector<double> vec, size_t rows, size_t columns)
     {
+        if(rows*columns > vec.size()){
+            throw invalid_argument("not enough size for matrix");
+        }
+        if (rows < 0 || columns < 0)
+        {
+            throw invalid_argument("can't have negative row or col");
+        }
+        if (rows % 1 != 0 || columns % 1 != 0)
+        {
+            throw invalid_argument("rows and columns must be int number");
+        }
         this->rows = rows;
         this->columns = columns;
         this->Mat = insert_val(vec, rows, columns);
     }
     Matrix::Matrix(size_t rows, size_t columns)
     {
+        if (rows < 0 || columns < 0)
+        {
+            throw invalid_argument("can't have negative row or col");
+        }
+        if (rows % 1 != 0 || columns % 1 != 0)
+        {
+            throw invalid_argument("rows and columns must be int number");
+        }
         this->rows = rows;
         this->columns = columns;
         this->Mat.assign(rows, vector<double>(columns));
     }
-    bool Matrix::operator!=(const Matrix &other)
+    bool Matrix::operator!=(const Matrix &other) const
     {
         if (this->rows != other.rows || this->columns != other.columns)
         {
@@ -59,7 +87,7 @@ namespace zich
         }
         return false;
     }
-    bool Matrix::operator==(const Matrix &other)
+    bool Matrix::operator==(const Matrix &other) const
     {
         if (this->rows != other.rows || this->columns != other.columns)
         {
@@ -91,15 +119,16 @@ namespace zich
                 size_t sum = 0;
                 for (size_t k = 0; k < this->columns; k++)
                 {
-                    sum += this->Mat[i][k] * other.Mat[i][j];
+                    sum += this->Mat[i][k] * other.Mat[k][j];
                 }
                 mat[i][j] = sum;
             }
         }
+        this->Mat.assign(this->rows, vector<double>(other.columns));
         this->Mat.swap(mat);
         return *this;
     }
-    bool Matrix::operator<(const Matrix &other)
+    bool Matrix::operator<(const Matrix &other) const
     {
         size_t sum_other = matrix_sum(other.Mat);
         size_t sum_self = matrix_sum(Mat);
@@ -112,7 +141,7 @@ namespace zich
             return false;
         }
     }
-    bool Matrix::operator<=(const Matrix &other)
+    bool Matrix::operator<=(const Matrix &other) const
     {
         size_t sum_other = matrix_sum(other.Mat);
         size_t sum_self = matrix_sum(Mat);
@@ -125,7 +154,7 @@ namespace zich
             return false;
         }
     }
-    bool Matrix::operator>(const Matrix &other)
+    bool Matrix::operator>(const Matrix &other) const
     {
         size_t sum_other = matrix_sum(other.Mat);
         size_t sum_self = matrix_sum(Mat);
@@ -138,7 +167,7 @@ namespace zich
             return false;
         }
     }
-    bool Matrix::operator>=(const Matrix &other)
+    bool Matrix::operator>=(const Matrix &other) const
     {
         size_t sum_other = matrix_sum(other.Mat);
         size_t sum_self = matrix_sum(Mat);
@@ -165,7 +194,7 @@ namespace zich
                 size_t sum = 0;
                 for (size_t k = 0; k < this->columns; k++)
                 {
-                    sum += this->Mat[i][k] * other.Mat[i][j];
+                    sum += this->Mat[i][k] * other.Mat[k][j];
                 }
                 multi_mat.Mat[i][j] = sum;
             }
@@ -322,11 +351,11 @@ namespace zich
     }
     ostream &operator<<(ostream &os, const Matrix &mat)
     {
-        for (size_t i = 0; i < mat.columns; i++)
+        for (size_t i = 0; i < mat.rows; i++)
         {
             os << "["
                << " ";
-            for (size_t j = 0; j < mat.rows; j++)
+            for (size_t j = 0; j < mat.columns; j++)
             {
                 os << mat.Mat[i][j] << " ";
             }

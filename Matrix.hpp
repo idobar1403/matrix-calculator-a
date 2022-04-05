@@ -10,16 +10,17 @@ namespace zich
         size_t rows;
         size_t columns;
         std::vector<std::vector<double>> Mat;
+
     public:
         Matrix(std::vector<double> vec, size_t rows, size_t columns);
         Matrix(size_t rows, size_t columns);
         // function for matrix equalization
-        bool operator!=(const Matrix &other);
-        bool operator==(const Matrix &other);
-        bool operator<=(const Matrix &other);
-        bool operator<(const Matrix &other);
-        bool operator>=(const Matrix &other);
-        bool operator>(const Matrix &other);
+        bool operator!=(const Matrix &other) const;
+        bool operator==(const Matrix &other) const;
+        bool operator<=(const Matrix &other) const;
+        bool operator<(const Matrix &other) const;
+        bool operator>=(const Matrix &other) const;
+        bool operator>(const Matrix &other) const;
         // mathematical functions between two matrix
         Matrix operator+(const Matrix &other);
         Matrix operator+=(const Matrix &other);
